@@ -12,7 +12,22 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
         <!-- List the todo items here -->
+        {% for item in todo_list: %}
+          <form method="post" action="remove-todo">
+            <li class="list-group-item h-4">
+              <span class="name">{{ item.title }}</span>
+                <input type="hidden" value={{ item.id }} name="id">
+                <input type="submit" value="Delete" class="btn btn-danger float-right align-middle py-0">
+            </li>
+          </form>
+        {% endfor %}
       </ul>
+    </div>
+    <div>
+      <form method="post" action="add-todo">
+        <input type="text" name="todo_name" required>
+        <input type="submit" value="Add">
+      </form>
     </div>
   </div>
 {% endblock %}
