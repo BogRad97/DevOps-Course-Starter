@@ -53,6 +53,19 @@ def add_item(title):
 
     return item
 
+def remove_item(id):
+    """
+    Removes an item with the specified id to the session.
+
+    Args:
+        id: The id of the item.
+    """
+    items = get_items()
+    items = [it for it in items if int(it['id']) != int(id)]
+
+    # Remove the item from the list
+    session['items'] = items
+
 
 def save_item(item):
     """
