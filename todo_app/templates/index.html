@@ -11,19 +11,34 @@
     <div class="col-md-12">
       <h2>Items</h2>
       <ul class="list-group mb-4">
-        <!-- List the todo items here -->
-        {% for item in todo_list: %}
-          <form method="post" action="remove-todo">
-            <li class="list-group-item h-4">
-              <span class="name">{{ item.title }}</span>
-                <input type="hidden" value={{ item.id }} name="id">
-                <input type="submit" value="Delete" class="btn btn-danger float-right align-middle py-0">
-            </li>
-          </form>
-        {% endfor %}
+          <!-- List the todo items here -->
+          {% for list_idx, todo_list in todo_lists: %}
+              <li class="list-group-item h-4">
+                <span class="name">{{ todo_list.title }}</span>
+                <ul class="list-group mb-4">
+                {% for item in todo_list.cards: %}
+                    <li class="list-group-item h-5">
+                        <span class="name">{{ item.title }}</span>
+                        <form method="post" action="remove-todo">
+                            <input type="hidden" value={{ item.id }} name="id">
+                            <input type="submit" value="Delete" class="btn btn-danger float-right py-0">
+                        </form>
+                        <form method="post" action="move-backwards">
+                            <input type="hidden" value={{ item.id }} name="id">
+                            <input type="submit" value="Move Backwards" class="btn btn-warning float-right py-0" {{ 'disabled' if list_idx == 0 else '' }}>
+                        </form>
+                        <form method="post" action="move-across">
+                            <input type="hidden" value={{ item.id }} name="id">
+                            <input type="submit" value="Move Across" class="btn btn-success float-right py-0" {{ 'disabled' if list_idx == todo_lists_len - 1 else '' }}>
+                        </form>
+                    </li>
+                {% endfor %}
+                </ul>
+              </li>
+          {% endfor %}
       </ul>
     </div>
-    <div>
+    <div class="pb-5">
       <form method="post" action="add-todo">
         <input type="text" name="todo_name" required>
         <input type="submit" value="Add">
