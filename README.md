@@ -58,3 +58,7 @@ You should see output similar to the following:
  * Debugger PIN: 226-556-590
 ```
 Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser to view the app.
+
+## Running the tests
+
+Tests can be found under todo_app/tests. In order to run them, run 'pytest' in a terminal, from the root directory

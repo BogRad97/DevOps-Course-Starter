@@ -1,4 +1,5 @@
 import flask
+from todo_app.data.models.view_model import ViewModel
 from todo_app.flask_config import Config
 import todo_app.data.trello_items as ti
 
@@ -9,7 +10,8 @@ app.config.from_object(Config())
 @app.route('/')
 def index():
     todo_lists = ti.get_items()
-    return flask.templating.render_template("index.html", todo_lists=enumerate(todo_lists), todo_lists_len=len(todo_lists))
+    view_model = ViewModel(todo_lists)
+    return flask.templating.render_template("index.html", view_model=view_model)
 
 
 @app.route('/add-todo', methods=["POST"])
