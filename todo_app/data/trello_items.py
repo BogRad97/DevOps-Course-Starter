@@ -6,8 +6,6 @@ from .models.trello_list import TrelloList
 from typing import List
 from copy import deepcopy
 
-TRELLO_BOARD_ID = os.getenv("TRELLO_BOARD_ID")
-
 auth_query_params = {
     "key": os.getenv("TRELLO_CONSUMER_KEY"),
     "token": os.getenv("TRELLO_ACCESS_TOKEN")
@@ -22,6 +20,7 @@ def get_items() -> List[TrelloList]:
         list: The list of saved items.
     """
 
+    TRELLO_BOARD_ID = os.getenv("TRELLO_BOARD_ID")
     content = json.loads(requests.get(f'https://trello.com/1/board/{TRELLO_BOARD_ID}/cards', auth_query_params).content)
     cards = [TrelloCard(x) for x in content]
     content = json.loads(requests.get(f'https://trello.com/1/board/{TRELLO_BOARD_ID}/lists', auth_query_params).content)

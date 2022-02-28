@@ -12,7 +12,7 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
           <!-- List the todo items here -->
-          {% for list_idx, todo_list in todo_lists: %}
+          {% for list_idx, todo_list in view_model.enumerated_items: %}
               <li class="list-group-item h-4">
                 <span class="name">{{ todo_list.title }}</span>
                 <ul class="list-group mb-4">
@@ -29,7 +29,7 @@
                         </form>
                         <form method="post" action="move-across">
                             <input type="hidden" value={{ item.id }} name="id">
-                            <input type="submit" value="Move Across" class="btn btn-success float-right py-0" {{ 'disabled' if list_idx == todo_lists_len - 1 else '' }}>
+                            <input type="submit" value="Move Across" class="btn btn-success float-right py-0" {{ 'disabled' if list_idx == view_model.len_items - 1 else '' }}>
                         </form>
                     </li>
                 {% endfor %}
