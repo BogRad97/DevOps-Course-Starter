@@ -1,11 +1,18 @@
 name: Continuous Integration
-on: [push]
-
+on:
+  push:
+    paths-ignore:
+      - 'README.md'
+      - 'documentation/**'
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'documentation/**'
 jobs:
   build:
     name: Build and test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - run: docker build --target test --tag todo-app-test-image .
-    - run: docker run -e SECRET_KEY=${{ secrets.FLASK_SECRET_KEY }} -e TRELLO_CONSUMER_KEY=${{ secrets.TRELLO_CONSUMER_KEY }} -e TRELLO_CONSUMER_SECRET=${{ secrets.TRELLO_CONSUMER_SECRET }} -e TRELLO_ACCESS_TOKEN=${{ secrets.TRELLO_ACCESS_TOKEN }} -e TRELLO_BOARD_ID=${{ secrets.TRELLO_BOARD_ID }} todo-app-test-image
+      - uses: actions/checkout@v2
+      - run: docker build --target test --tag todo-app-test-image .
+      - run: docker run -e SECRET_KEY=${{ secrets.FLASK_SECRET_KEY }} -e TRELLO_CONSUMER_KEY=${{ secrets.TRELLO_CONSUMER_KEY }} -e TRELLO_CONSUMER_SECRET=${{ secrets.TRELLO_CONSUMER_SECRET }} -e TRELLO_ACCESS_TOKEN=${{ secrets.TRELLO_ACCESS_TOKEN }} -e TRELLO_BOARD_ID=${{ secrets.TRELLO_BOARD_ID }} todo-app-test-image
