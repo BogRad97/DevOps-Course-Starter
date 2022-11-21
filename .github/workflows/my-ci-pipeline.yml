@@ -28,5 +28,5 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build the image
         run: echo Publishing
-        if: ${{ github.event_name == "push" && github.ref_name == "module8" }}
+        if: ${{ github.event_name == 'push' && github.ref_name == 'module8' }}
     needs: build
