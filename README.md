@@ -69,3 +69,18 @@ When making changes to the codebase, build the docker image using the developmen
 ## Running the tests
 
 Tests can be found under todo_app/tests. In order to run them, run 'pytest' in a terminal, from the root directory
+
+
+## Deploying on an Azure App Service
+* Build the production docker image by running `docker build --target production --tag <dockerhub-username>/todo-app .`
+* Login to Docker Hub (`docker login`) and push the image (`docker push <dockerhub-username>/todo-app:latest`) 
+* Create the App Service in Azure if it doesn't already exist. Make sure you set the "Publish" field to "Docker Container" and the "Image Source" is set to DockerHub.
+* When the app is created, go to the Configure tab and add the environment variables. Also add an env variable to set `WEBSITES_PORT=5000`
+* Enjoy!
+
+Note: If you need to re-deploy a docker image, you need to do steps 1 and 2, and additionally:
+* Run `curl -dH -X POST "<webhook>"`. You can get the webhook from the App Service's _Deployment Center_ tab. Make sure to escape `$`!
+
+Relevant links:
+* [DockerHub](https://hub.docker.com/r/bogdanradulescu97/todo_app)
+* [App Service](https://bograd-todoapp.azurewebsites.net/) 
