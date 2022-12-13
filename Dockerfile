@@ -1,13 +1,18 @@
-FROM python:3.9 as base
-RUN pip install "poetry"
-RUN pip install "flask"
-RUN pip install "gunicorn"
-RUN pip install "pytest"
-RUN pip install "python-dotenv"
+FROM python:3.11 as base
+
+ENV POETRY_HOME=/poetry
+ENV PATH=${POETRY_HOME}/bin:${PATH}
+ENV PYTHONPATH=/app
+
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
+
 RUN mkdir /app
-COPY . /app
+COPY pyproject.toml poetry.toml /app/
 WORKDIR /app
 RUN poetry install
+
+COPY . /app
+
 EXPOSE 5000
 
 FROM base as development
