@@ -1,32 +1,30 @@
-from typing import List
-from todo_app.data.models.trello_list import TrelloList
+from todo_app.data.models.item import Item
+from todo_app.data.models.status import Status
 
 class ViewModel:
     def __init__(self, items):
-        self._items: List[TrelloList] = items
-
-    @property
-    def enumerated_items(self):
-        return enumerate(self._items)
+        self._items: list[Item] = items if items is not None else []
     
     @property
-    def len_items(self):
+    def len_items(self) -> int:
         return len(self._items)
     
     @property
-    def todo_items(self):
-        for item in self._items:
-            if item.title == 'To Do':
-                return item.cards
+    def aggregated_items(self) -> dict[list[Item]]:
+        return {
+            Status.TODO: self.todo_items,
+            Status.DOING: self.doing_items,
+            Status.DONE: self.done_items
+        }
     
     @property
-    def doing_items(self):
-       for item in self._items:
-            if item.title == 'Doing':
-                return item.cards
+    def todo_items(self) -> list[Item]:
+        return list(filter(lambda x: x.status == Status.TODO, self._items))
     
     @property
-    def done_items(self):
-        for item in self._items:
-            if item.title == 'Done':
-                return item.cards
+    def doing_items(self) -> list[Item]:
+       return list(filter(lambda x: x.status == Status.DOING, self._items))
+    
+    @property
+    def done_items(self) -> list[Item]:
+        return list(filter(lambda x: x.status == Status.DONE, self._items))
