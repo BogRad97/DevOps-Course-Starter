@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: docker build --target test --tag todo-app-test-image .
-      - run: docker run -e SECRET_KEY=${{ secrets.FLASK_SECRET_KEY }} -e DATABASE_NAME=${{ secrets.DATABASE_NAME }} -e COLLECTION_NAME=${{ secrets.COLLECTION_NAME }} -e CONNECTION_STRING=mongodb://fakemongo.com todo-app-test-image
+      - run: docker run -e SECRET_KEY=${{ secrets.FLASK_SECRET_KEY }} -e DATABASE_NAME=${{ secrets.DATABASE_NAME }} -e COLLECTION_NAME=${{ secrets.COLLECTION_NAME }} -e CONNECTION_STRING=${{ secrets.TEST_CONNECTION_STRING }} todo-app-test-image
   
   deploy:
     name: Build and deploy to DockerHub
@@ -34,3 +34,5 @@ jobs:
         run: docker build --target production --tag bogdanradulescu97/todo-app-production-image:latest .
       - name: Publish production image
         run: docker push bogdanradulescu97/todo-app-production-image:latest
+      - name: Pull image to Azure App Service
+        run: curl -dH -X POST '${{ secrets.APP_SERVICE_WEBHOOK }}'
