@@ -70,6 +70,7 @@ When making changes to the codebase, build the docker image using the developmen
 
 Tests can be found under todo_app/tests. In order to run them, run 'pytest' in a terminal, from the root directory
 
+To run the tests using Docker, you need to run `docker-compose up test` 
 
 ## Deploying on an Azure App Service
 * Build the production docker image by running `docker build --target production --tag <dockerhub-username>/todo-app .`

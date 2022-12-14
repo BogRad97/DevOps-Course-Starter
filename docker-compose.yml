@@ -4,10 +4,22 @@ services:
 
   todoapp:
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
       target: ${BUILD_TARGET}
     ports:
       - "5000:5000"
     env_file:
-      - ./.env
+      - .env
+    volumes:
+    - type: bind
+      source: ./todo_app
+      target: /app/todo_app
+  
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: test
+    env_file:
+      - .env.test
