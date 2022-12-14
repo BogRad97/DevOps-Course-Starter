@@ -1,25 +1,48 @@
 version: "3.11"
 
 services:
-
-  todoapp:
+  dev:
     build:
       context: .
       dockerfile: Dockerfile
-      target: ${BUILD_TARGET}
+      target: development
     ports:
       - "5000:5000"
     env_file:
       - .env
+    environment:
+      - CONNECTION_STRING=mongodb://dev:password@mongodb:27017/
     volumes:
-    - type: bind
-      source: ./todo_app
-      target: /app/todo_app
+      - type: bind
+        source: ./todo_app
+        target: /app/todo_app
+    depends_on:
+      - mongodb
+  
+  prod:
+    profiles: ["prod"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "5000:5000"
+    env_file:
+      - .env
   
   test:
+    profiles: ["test"]
     build:
       context: .
       dockerfile: Dockerfile
       target: test
     env_file:
       - .env.test
+  
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: dev
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: todoapp-db

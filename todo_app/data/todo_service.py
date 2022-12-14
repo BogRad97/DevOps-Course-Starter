@@ -20,7 +20,7 @@ class TodoService():
         return [Item.from_dict(x) for x in raw_items]
     
     def remove_item(self, id: str) -> None:
-        self.collection.delete_one({'_id': id})
+        self.collection.delete_one({'_id': ObjectId(id)})
     
     def move_across(self, id: str) -> None:
         self.__move_card(id, Status.get_next)
@@ -31,4 +31,4 @@ class TodoService():
     def __move_card(self, id: str, status_function: callable) -> None:
         item: Item = Item.from_dict(self.collection.find_one({'_id': ObjectId(id)}))
         new_status = status_function(item.status)
-        self.collection.update_one({'_id': id}, {"$set": {'status': new_status.value}})
+        res = self.collection.update_one({'_id': ObjectId(id)}, {"$set": {'status': new_status.value}})
