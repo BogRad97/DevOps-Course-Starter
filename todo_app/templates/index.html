@@ -12,24 +12,24 @@
       <h2>Items</h2>
       <ul class="list-group mb-4">
           <!-- List the todo items here -->
-          {% for list_idx, todo_list in view_model.enumerated_items: %}
+          {% for todo_list in view_model.aggregated_items: %}
               <li class="list-group-item h-4">
-                <span class="name">{{ todo_list.title }}</span>
+                <span class="name">{{ todo_list.value }}</span>
                 <ul class="list-group mb-4">
-                {% for item in todo_list.cards: %}
+                {% for item in view_model.aggregated_items[todo_list]: %}
                     <li class="list-group-item h-5">
                         <span class="name">{{ item.title }}</span>
                         <form method="post" action="remove-todo">
-                            <input type="hidden" value={{ item.id }} name="id">
+                            <input type="hidden" value={{ item._id }} name="id">
                             <input type="submit" value="Delete" class="btn btn-danger float-right py-0">
                         </form>
                         <form method="post" action="move-backwards">
-                            <input type="hidden" value={{ item.id }} name="id">
-                            <input type="submit" value="Move Backwards" class="btn btn-warning float-right py-0" {{ 'disabled' if list_idx == 0 else '' }}>
+                            <input type="hidden" value={{ item._id }} name="id">
+                            <input type="submit" value="Move Backwards" class="btn btn-warning float-right py-0" {{ 'disabled' if item.status.value == 'To Do' else '' }}>
                         </form>
                         <form method="post" action="move-across">
-                            <input type="hidden" value={{ item.id }} name="id">
-                            <input type="submit" value="Move Across" class="btn btn-success float-right py-0" {{ 'disabled' if list_idx == view_model.len_items - 1 else '' }}>
+                            <input type="hidden" value={{ item._id }} name="id">
+                            <input type="submit" value="Move Across" class="btn btn-success float-right py-0" {{ 'disabled' if item.status.value == 'Done' else '' }}>
                         </form>
                     </li>
                 {% endfor %}

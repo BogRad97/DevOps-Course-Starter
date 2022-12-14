@@ -2,7 +2,7 @@
 
 ## System Requirements
 
-The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.7+ and install Poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
+The project uses poetry for Python to create an isolated environment and manage package dependencies. To prepare your system, ensure you have an official distribution of Python version 3.11 and install Poetry using one of the following commands (as instructed by the [poetry documentation](https://python-poetry.org/docs/#system-requirements)):
 
 ### Poetry installation (Bash)
 
@@ -61,15 +61,14 @@ Now visit [`http://localhost:5000/`](http://localhost:5000/) in your web browser
 
 ## Running the App through Docker
 
-Build and run the app by running `BUILD_TARGET={build_target} docker-compose up`, where {build_target} can be `development` or `production`.
-`development` starts a Flask app, whereas `production` uses gunicorn/wsgi.
+Build and run the app by running `docker-compose up <service>`, where service can be `dev`, `prod` or `test`. If you don't specify a service, `dev` is the default.
+`dev` starts a Flask app, whereas `prod` uses gunicorn/wsgi.
 
 When making changes to the codebase, build the docker image using the development build target. Changes should be picked up automatically, but if you need to restart, you can just use `docker-compose up` and `docker-compose down`.
 
 ## Running the tests
 
 Tests can be found under todo_app/tests. In order to run them, run 'pytest' in a terminal, from the root directory
-
 
 ## Deploying on an Azure App Service
 * Build the production docker image by running `docker build --target production --tag <dockerhub-username>/todo-app .`
