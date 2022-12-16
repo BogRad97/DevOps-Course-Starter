@@ -4,6 +4,7 @@ from todo_app.flask_config import Config
 from todo_app.data.todo_service import TodoService
 from loggly.handlers import HTTPSHandler
 from logging import Formatter
+from prometheus_flask_exporter import PrometheusMetrics
 
 def set_logger(app):
     if app.config['LOGGLY_TOKEN'] is not None:
@@ -18,6 +19,7 @@ def create_app():
     app.config.from_object(Config())
     set_logger(app)
     app.logger.setLevel(app.config['LOG_LEVEL'])
+    metrics = PrometheusMetrics(app)
     
     todo_service = TodoService()
 
