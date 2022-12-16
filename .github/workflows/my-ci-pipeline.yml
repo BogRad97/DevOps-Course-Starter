@@ -14,8 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: docker build --target test --tag todo-app-test-image .
-      - run: docker run -e SECRET_KEY=${{ secrets.FLASK_SECRET_KEY }} -e DATABASE_NAME=${{ secrets.DATABASE_NAME }} -e COLLECTION_NAME=${{ secrets.COLLECTION_NAME }} -e CONNECTION_STRING=${{ secrets.TEST_CONNECTION_STRING }} todo-app-test-image
+      - run: docker compose up test --build
   
   deploy:
     name: Build and deploy to DockerHub
