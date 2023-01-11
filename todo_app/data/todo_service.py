@@ -3,11 +3,28 @@ import pymongo
 from bson.objectid import ObjectId
 from .models.item import Item
 from .models.status import Status
-
+from azure.keyvault.secrets import SecretClient
+from azure.identity import DefaultAzureCredential
+from logging import Logger
 
 class TodoService():
-    def __init__(self) -> None:
-        self.mongo_client = pymongo.MongoClient(os.getenv('CONNECTION_STRING'))
+
+    def __get_connection_string(self) -> str:
+        try:
+            KVUri = f'https://{os.environ["KEY_VAULT_NAME"]}.vault.azure.net'
+            credential = DefaultAzureCredential()
+            client = SecretClient(vault_url=KVUri, credential=credential)
+            self.logger.info('Using KeyVault for connection string')
+            return client.get_secret('CONNECTION-STRING')
+        except ValueError:
+            if self.logger:
+                self.logger.info('Using .env for connection string')
+
+        return os.getenv('CONNECTION_STRING')
+
+    def __init__(self, logger: Logger = None) -> None:
+        self.logger = logger
+        self.mongo_client = pymongo.MongoClient(self.__get_connection_string())
         self.database = self.mongo_client[os.getenv('DATABASE_NAME')]
         self.collection = self.database[os.getenv('COLLECTION_NAME')]
     

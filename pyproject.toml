@@ -16,6 +16,8 @@ markupsafe = "2.0.1"
 mongomock = "^4.1.2"
 loggly-python-handler = "^1.0.1"
 prometheus-flask-exporter = "^0.21.0"
+azure-identity = "^1.12.0"
+azure-keyvault-secrets = "^4.6.0"
 
 [tool.poetry.dev-dependencies]
 

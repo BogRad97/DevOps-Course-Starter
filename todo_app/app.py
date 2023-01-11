@@ -21,7 +21,7 @@ def create_app():
     app.logger.setLevel(app.config['LOG_LEVEL'])
     metrics = PrometheusMetrics(app)
     
-    todo_service = TodoService()
+    todo_service = TodoService(app.logger)
 
 
     @app.route('/')
