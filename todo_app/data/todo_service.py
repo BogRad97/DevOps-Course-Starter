@@ -16,7 +16,7 @@ class TodoService():
             client = SecretClient(vault_url=KVUri, credential=credential)
             self.logger.info('Using KeyVault for connection string')
             return client.get_secret('CONNECTION-STRING')
-        except ValueError:
+        except (ValueError, KeyError):
             if self.logger:
                 self.logger.info('Using .env for connection string')
 
