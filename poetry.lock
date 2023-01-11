@@ -138,6 +138,17 @@ MarkupSafe = ">=0.23"
 i18n = ["Babel (>=0.8)"]
 
 [[package]]
+name = "loggly-python-handler"
+version = "1.0.1"
+description = "Python logging handler that sends messages to Loggly"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+requests-futures = ">=1.0.0"
+
+[[package]]
 name = "markupsafe"
 version = "2.0.1"
 description = "Safely add untrusted strings to HTML/XML markup."
@@ -176,6 +187,29 @@ python-versions = ">=3.6"
 [package.extras]
 dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
+
+[[package]]
+name = "prometheus-client"
+version = "0.15.0"
+description = "Python client for the Prometheus monitoring system."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.extras]
+twisted = ["twisted"]
+
+[[package]]
+name = "prometheus-flask-exporter"
+version = "0.21.0"
+description = "Prometheus metrics exporter for Flask"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+flask = "*"
+prometheus-client = "*"
 
 [[package]]
 name = "pymongo"
@@ -244,6 +278,17 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
+name = "requests-futures"
+version = "1.0.0"
+description = "Asynchronous Python HTTP for Humans."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+requests = ">=1.2.0"
+
+[[package]]
 name = "sentinels"
 version = "1.0.0"
 description = "Various objects to denote special meanings in python"
@@ -292,7 +337,7 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.11"
-content-hash = "a759b81fc2fd0d74b67449ad1cd12e59bfd90bf5ad14ce0c5a1b96cf72f46978"
+content-hash = "2843bf38f1426879f650ca7402841a17810d9bc6fed13e3badcbf962415c44a8"
 
 [metadata.files]
 attrs = [
@@ -342,6 +387,10 @@ itsdangerous = [
 jinja2 = [
     {file = "Jinja2-2.11.3-py2.py3-none-any.whl", hash = "sha256:03e47ad063331dd6a3f04a43eddca8a966a26ba0c5b7207a9a9e4e08f1b29419"},
     {file = "Jinja2-2.11.3.tar.gz", hash = "sha256:a6d58433de0ae800347cab1fa3043cebbabe8baa9d29e668f1c768cb87a333c6"},
+]
+loggly-python-handler = [
+    {file = "loggly-python-handler-1.0.1.tar.gz", hash = "sha256:adce302d21fbc5b9647a01067243fb549e9992bfe5ab09807b8fad56c9411995"},
+    {file = "loggly_python_handler-1.0.1-py3-none-any.whl", hash = "sha256:0a4a826adb31ffeb76dac7ca116ccb032ed923254244160e70ddd2c3e88df4fd"},
 ]
 markupsafe = [
     {file = "MarkupSafe-2.0.1-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:d8446c54dc28c01e5a2dbac5a25f071f6653e6e40f3a8818e8b45d790fe6ef53"},
@@ -425,6 +474,14 @@ packaging = [
 pluggy = [
     {file = "pluggy-1.0.0-py2.py3-none-any.whl", hash = "sha256:74134bbf457f031a36d68416e1509f34bd5ccc019f0bcc952c7b909d06b37bd3"},
     {file = "pluggy-1.0.0.tar.gz", hash = "sha256:4224373bacce55f955a878bf9cfa763c1e360858e330072059e10bad68531159"},
+]
+prometheus-client = [
+    {file = "prometheus_client-0.15.0-py3-none-any.whl", hash = "sha256:db7c05cbd13a0f79975592d112320f2605a325969b270a94b71dcabc47b931d2"},
+    {file = "prometheus_client-0.15.0.tar.gz", hash = "sha256:be26aa452490cfcf6da953f9436e95a9f2b4d578ca80094b4458930e5f584ab1"},
+]
+prometheus-flask-exporter = [
+    {file = "prometheus_flask_exporter-0.21.0-py3-none-any.whl", hash = "sha256:6dc4a010c299d1ed94b6151d91f129c4513fb8aa04310db00be4ccb0006de400"},
+    {file = "prometheus_flask_exporter-0.21.0.tar.gz", hash = "sha256:ebbc016c1e3d16e7cd39fe651a6c52ac68779858b2d5d1be6ddbc9e66f7fc29f"},
 ]
 pymongo = [
     {file = "pymongo-4.3.3-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:74731c9e423c93cbe791f60c27030b6af6a948cef67deca079da6cd1bb583a8e"},
@@ -513,6 +570,10 @@ python-dotenv = [
 requests = [
     {file = "requests-2.28.1-py3-none-any.whl", hash = "sha256:8fefa2a1a1365bf5520aac41836fbee479da67864514bdb821f31ce07ce65349"},
     {file = "requests-2.28.1.tar.gz", hash = "sha256:7c5599b102feddaa661c826c56ab4fee28bfd17f5abca1ebbe3e7f19d7c97983"},
+]
+requests-futures = [
+    {file = "requests-futures-1.0.0.tar.gz", hash = "sha256:35547502bf1958044716a03a2f47092a89efe8f9789ab0c4c528d9c9c30bc148"},
+    {file = "requests_futures-1.0.0-py2.py3-none-any.whl", hash = "sha256:633804c773b960cef009efe2a5585483443c6eac3c39cc64beba2884013bcdd9"},
 ]
 sentinels = [
     {file = "sentinels-1.0.0.tar.gz", hash = "sha256:7be0704d7fe1925e397e92d18669ace2f619c92b5d4eb21a89f31e026f9ff4b1"},

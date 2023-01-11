@@ -18,9 +18,9 @@ services:
         target: /app/todo_app
     depends_on:
       - mongodb
+      - prometheus
   
   prod:
-    profiles: ["prod"]
     build:
       context: .
       dockerfile: Dockerfile
@@ -29,9 +29,15 @@ services:
       - "5000:5000"
     env_file:
       - .env
+    
+  prometheus:
+    image: prom/prometheus
+    ports: 
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
   
   test:
-    profiles: ["test"]
     build:
       context: .
       dockerfile: Dockerfile
@@ -41,7 +47,6 @@ services:
   
   mongodb:
     image: mongo
-    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: dev
       MONGO_INITDB_ROOT_PASSWORD: password
