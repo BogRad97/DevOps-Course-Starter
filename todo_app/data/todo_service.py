@@ -15,7 +15,7 @@ class TodoService():
             credential = DefaultAzureCredential()
             client = SecretClient(vault_url=KVUri, credential=credential)
             self.logger.info('Using KeyVault for connection string')
-            return client.get_secret('CONNECTION-STRING')
+            return client.get_secret('CONNECTION-STRING').value
         except (ValueError, KeyError):
             if self.logger:
                 self.logger.info('Using .env for connection string')
